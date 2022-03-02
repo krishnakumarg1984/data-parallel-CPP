@@ -23,14 +23,14 @@ null_ls.setup({
   debug = false,
   sources = {
     formatting.clang_format,
-    formatting.codespell,
+    -- formatting.codespell,
     formatting.cmake_format,
     formatting.stylua.with({
       condition = function(utils)
         return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
       end,
     }),
-    diagnostics.codespell,
+    -- diagnostics.codespell,
     -- diagnostics.cppcheck,
     -- diagnostics.cspell,
   },
