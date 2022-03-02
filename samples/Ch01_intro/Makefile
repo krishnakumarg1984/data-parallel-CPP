@@ -1,13 +1,13 @@
 export SYCL_LANGUAGE_VERSION := 2020
 CXX = dpcpp
-CXXFLAGS = -O2 -g -std=c++17 -I../../External/Catch2/single_include
+CXXFLAGS = -O2 -g -std=c++17
 LDFLAGS = -lOpenCL -lsycl
 
-BUFFER_EXE_NAME = exercise01.out
-BUFFER_SOURCES = solution.cpp
+BUFFER_EXE_NAME = my_executable.x
+BUFFER_SOURCES = code.cpp
 # BUFFER_SOURCES = source.cpp
 
-USM_EXE_NAME = exercise01-usm
+# USM_EXE_NAME = exercise01-usm
 # USM_SOURCES = src/vector-add-usm.cpp
 
 all: build_buffers

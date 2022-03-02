@@ -9,11 +9,13 @@ void print_device_info(const sycl::queue& Q) {
 }
 
 int main() {
-    queue Q1 { host_selector {} };  // Create queue to use the host device explicitly
-    queue Q2;                       // implicit device selection (might be the host device)
+    queue Q1;                       // implicit device selection (might be the host device)
+    queue Q2 { host_selector {} };  // Create queue to use the host device explicitly
+    // queue Q3 { cpu_selector {} };   // Create queue to use the CPU device explicitly
 
     print_device_info(Q1);
     print_device_info(Q2);
+    print_device_info(Q3);
 
     return 0;
 }
