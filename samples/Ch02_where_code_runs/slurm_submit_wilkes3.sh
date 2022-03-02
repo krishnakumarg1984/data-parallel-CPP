@@ -25,6 +25,7 @@ module purge                                   # Removes all modules still loade
 # module load rhel8/default-icl >/dev/null 2>&1  # REQUIRED - loads the basic environment
 module load rhel8/slurm
 module load cuda
+module list
 
 #! Insert additional module load commands after this line if needed:
 source /usr/local/software/intel/oneapi/2022.1/setvars.sh >/dev/null 2>&1
