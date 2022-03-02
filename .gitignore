@@ -1,3 +1,4 @@
 *.out
 *.x
 machine.file.*
+code.cpp

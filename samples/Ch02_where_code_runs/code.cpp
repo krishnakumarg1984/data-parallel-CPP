@@ -1,1 +1,0 @@
-fig_2_10_cpu_selector.cpp
