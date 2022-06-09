@@ -86,4 +86,4 @@ echo -e "\nExecuting command:\n==================\n$CMD\n"
 
 eval $CMD 
 
-# mv machine.file.* $log_dir/ 2>/dev/null
+mv machine.file.* $log_dir/ 2>/dev/null

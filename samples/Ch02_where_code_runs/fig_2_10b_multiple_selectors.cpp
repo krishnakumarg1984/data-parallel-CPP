@@ -12,12 +12,12 @@ int main() {
     queue Q1;                       // implicit device selection (might be the host device)
     queue Q2 { host_selector {} };  // Create queue to use the host device explicitly
     queue Q3 { cpu_selector {} };   // Create queue to use the CPU device explicitly
-    // queue Q4 { gpu_selector {} };   // Create queue to use the GPU device explicitly
+    queue Q4 { gpu_selector {} };   // Create queue to use the GPU device explicitly
 
     print_device_info(Q1);
     print_device_info(Q2);
     print_device_info(Q3);
-    // print_device_info(Q4);
+    print_device_info(Q4);
 
     return 0;
 }

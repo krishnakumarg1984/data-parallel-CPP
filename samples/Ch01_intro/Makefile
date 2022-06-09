@@ -14,7 +14,8 @@ all: build_buffers
 
 build_buffers:
 	echo SYCL_LANGUAGE_VERSION: $$SYCL_LANGUAGE_VERSION
-	$(CXX) $(CXXFLAGS) -o $(BUFFER_EXE_NAME) $(BUFFER_SOURCES) $(LDFLAGS)
+	# $(CXX) $(CXXFLAGS) -o $(BUFFER_EXE_NAME) $(BUFFER_SOURCES) $(LDFLAGS)
+	clang++ -fsycl -fsycl-targets=nvptx64-nvidia-cuda code.cpp -o my_executable.x
 
 # build_usm:
 # 	$(CXX) $(CXXFLAGS) -o $(USM_EXE_NAME) $(USM_SOURCES)
