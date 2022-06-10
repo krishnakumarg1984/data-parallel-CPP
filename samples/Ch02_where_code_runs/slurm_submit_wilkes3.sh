@@ -16,36 +16,44 @@
 #! Number of nodes and tasks per node allocated by SLURM (do not change):
 numnodes=$SLURM_JOB_NUM_NODES
 numtasks=$SLURM_NTASKS
-mpi_tasks_per_node=$(echo "$SLURM_TASKS_PER_NODE" | sed -e  's/^\([0-9][0-9]*\).*$/\1/')
+mpi_tasks_per_node=$(echo "$SLURM_TASKS_PER_NODE" | sed -e 's/^\([0-9][0-9]*\).*$/\1/')
 
 #! Optionally modify the environment seen by the application
 #! (note that SLURM reproduces the environment at submission irrespective of ~/.bashrc):
-. /etc/profile.d/modules.sh                    # Leave this line (enables the module command)
-module purge                                   # Removes all modules still loaded
+. /etc/profile.d/modules.sh # Leave this line (enables the module command)
+# module purge                # Removes all modules still loaded
 # module load rhel8/default-icl >/dev/null 2>&1  # REQUIRED - loads the basic environment
-module load rhel8/slurm
-module load cuda
-module list
+# module load rhel8/slurm
+# module load cuda
+# module list
 
 #! Insert additional module load commands after this line if needed:
+# source /usr/local/software/intel/oneapi/2022.1/setvars.sh >/dev/null 2>&1
+module purge
+module load rhel8/slurm
+# module load spack/git >/dev/null 2>&1
+# source $SPACK_ROOT/share/spack/setup-env.sh >/dev/null 2>&1
 source /usr/local/software/intel/oneapi/2022.1/setvars.sh >/dev/null 2>&1
+module use /usr/local/software/spack/spack-modules/dpcpp-cuda-20220220/linux-centos8-x86_64_v3/ >/dev/null 2>&1
+module load dpcpp >/dev/null 2>&1
+module load gcc/11.2.0 >/dev/null 2>&1
 
-#! Full path to application executable: 
+#! Full path to application executable:
 application="./my_executable.x"
 
 #! Run options for the application:
 options=""
 
 #! Work directory (i.e. where the job will run):
-workdir="$SLURM_SUBMIT_DIR"  # The value of SLURM_SUBMIT_DIR sets workdir to the directory
-                             # in which sbatch is run.
+workdir="$SLURM_SUBMIT_DIR" # The value of SLURM_SUBMIT_DIR sets workdir to the directory
+# in which sbatch is run.
 
 #! Are you using OpenMP (NB this is unrelated to OpenMPI)? If so increase this
 #! safe value to no more than 128:
 export OMP_NUM_THREADS=1
 
 #! Number of MPI tasks to be started by the application per node and in total (do not change):
-np=$[${numnodes}*${mpi_tasks_per_node}]
+np=$((${numnodes} * ${mpi_tasks_per_node}))
 
 #! Choose this for a pure shared-memory OpenMP parallel program on a single node:
 #! (OMP_NUM_THREADS threads will be created):
@@ -59,21 +67,21 @@ CMD="$application $options"
 ###############################################################
 
 cd $workdir
-echo -e "Changed directory to `pwd`.\n"
+echo -e "Changed directory to $(pwd).\n"
 
 JOBID=$SLURM_JOB_ID
 
 echo -e "JobID: $JOBID\n======"
-echo "Time: `date`"
-echo "Running on master node: `hostname`"
-echo "Current directory: `pwd`"
+echo "Time: $(date)"
+echo "Running on master node: $(hostname)"
+echo "Current directory: $(pwd)"
 
 if [ "$SLURM_JOB_NODELIST" ]; then
-        #! Create a machine file:
-        export NODEFILE=`generate_pbs_nodefile`
-        cat $NODEFILE | uniq > machine.file.$JOBID
-        echo -e "\nNodes allocated:\n================"
-        echo `cat machine.file.$JOBID | sed -e 's/\..*$//g'`
+  #! Create a machine file:
+  export NODEFILE=$(generate_pbs_nodefile)
+  cat $NODEFILE | uniq >machine.file.$JOBID
+  echo -e "\nNodes allocated:\n================"
+  echo $(cat machine.file.$JOBID | sed -e 's/\..*$//g')
 fi
 
 echo -e "\nnumtasks=$numtasks, numnodes=$numnodes, mpi_tasks_per_node=$mpi_tasks_per_node (OMP_NUM_THREADS=$OMP_NUM_THREADS)"
@@ -84,6 +92,6 @@ mv slurm*.out $log_dir/ 2>/dev/null
 
 echo -e "\nExecuting command:\n==================\n$CMD\n"
 
-eval $CMD 
+eval $CMD
 
 mv machine.file.* $log_dir/ 2>/dev/null

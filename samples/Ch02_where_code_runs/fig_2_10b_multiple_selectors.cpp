@@ -3,8 +3,8 @@
 using namespace sycl;
 
 void print_device_info(const sycl::queue& Q) {
-    std::cout << "Selected device: " << Q.get_device().get_info<info::device::name>() << "\n";
-    std::cout << "Device vendor: " << Q.get_device().get_info<info::device::vendor>() << "\n";
+    std::cout << "Selected device: " << Q.get_device().get_info<info::device::name>() << '\n';
+    std::cout << "Device vendor: " << Q.get_device().get_info<info::device::vendor>() << '\n';
     std::cout << '\n';
 }
 

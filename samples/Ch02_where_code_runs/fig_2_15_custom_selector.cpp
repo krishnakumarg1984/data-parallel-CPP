@@ -20,7 +20,6 @@ class my_selector : public device_selector {
 
 int main() {
     queue Q(my_selector {});
-
     std::cout << "Selected device is: " << Q.get_device().get_info<info::device::name>() << "\n";
 
     return 0;

@@ -4,8 +4,8 @@
 using namespace sycl;
 
 int main() {
-    constexpr int size = 16;
-    std::array<int, size> data;
+    constexpr int size { 16 };
+    std::array<int, size> data {};
     buffer B { data };
 
     queue Q {};  // Select any device for this queue
