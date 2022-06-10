@@ -21,7 +21,10 @@ class Functor {
 // END BOOK SNIP
 
 int main() {
-    int i = 1, j = 10, k = 100, l = 1000;
+    int i = 1;
+    int j = 10;
+    int k = 100;
+    int l = 1000;
 
     Functor F { i, j };
 

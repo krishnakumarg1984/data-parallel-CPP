@@ -1,1 +1,1 @@
-../../.vimrc.lua
+../.vimrc.lua
