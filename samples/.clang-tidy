@@ -5,7 +5,7 @@
 # Enable ALL the things! Except not really
 # misc-non-private-member-variables-in-classes: the options don't do anything
 Checks: "*,\
-  -clang-diagnostic-error,\
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,\
   -bugprone-not-null-terminated-result,\
   -readability-identifier-length,\
   -google-build-using-namespace,\
